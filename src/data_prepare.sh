@@ -1,2 +1,2 @@
 #!/bin/sh
-python ./data/data_prepare.py
+python3 ./data/data_prepare.py
