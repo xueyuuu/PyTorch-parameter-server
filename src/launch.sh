@@ -7,7 +7,7 @@ WORKING_DIR=${HOME}/PyTorch-parameter-server/src
 host_file="${HOME}/PyTorch-parameter-server/tools/hosts_address"
 
 host_ip=`cat $host_file | awk '{ print $0 }'`
-i = 0
+i=0
 for ip in $host_ip;
   do
     ((i++))
