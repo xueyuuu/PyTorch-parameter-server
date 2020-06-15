@@ -1,4 +1,3 @@
-
 NODE_RANK="$1"
 NNODE="$2"
 MASTER_IP="$3"
