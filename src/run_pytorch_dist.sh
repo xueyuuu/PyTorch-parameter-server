@@ -22,4 +22,4 @@ ${SRC_DIR}/distributed_nn.py \
 --gather-type=gather \
 --compress-grad=compress \
 --enable-gpu= \
---train-dir=/home/hduser > out_node_${NODE_RANK}
+--train-dir=/home/hduser > SRC_DIR/logs/out_node_${NODE_RANK} &2>1
