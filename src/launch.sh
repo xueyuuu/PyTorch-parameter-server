@@ -1,4 +1,4 @@
-KEY_PEM_NAME=HongyiScript.pem
+# KEY_PEM_NAME=HongyiScript.pem
 export DEEPLEARNING_WORKERS_COUNT=`wc -l < ${HOME}/PyTorch-parameter-server/tools/hosts_address`
 MASTER_PUB_IP="$1"
 WORKING_DIR=${HOME}/PyTorch-parameter-server/src
