@@ -4,7 +4,7 @@ MASTER_IP="$3"
 SRC_DIR=${HOME}/PyTorch-parameter-server/src
 
 echo ${MASTER_IP}
-sudo python3 -m torch.distributed.launch \
+python3 -m torch.distributed.launch \
 --nproc_per_node=1 \
 --nnodes=${NNODE} --node_rank=${NODE_RANK} --master_addr="${MASTER_IP}" --master_port=1234 \
 ${SRC_DIR}/distributed_nn.py \
@@ -22,4 +22,4 @@ ${SRC_DIR}/distributed_nn.py \
 --gather-type=gather \
 --compress-grad=compress \
 --enable-gpu= \
---train-dir=/home/hduser > out_node_${NODE_RANK} 2>&1
+--train-dir=/home/hduser > out_node_${NODE_RANK}
