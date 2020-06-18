@@ -135,6 +135,6 @@ if __name__ == "__main__":
             worker_fc_nn.build_model(num_classes=100)
         else:
             worker_fc_nn.build_model(num_classes=10)
-        print("I am worker: {} in all {} workers, next step: {}".format(worker_fc_nn.rank, worker_fc_nn.next_step))
+        print("I am worker: {}, next step: {}".format(worker_fc_nn.rank, worker_fc_nn.next_step))
         worker_fc_nn.train(train_loader=train_loader, test_loader=test_loader)
         print("Now the next step is: {}".format(worker_fc_nn.next_step))
