@@ -183,7 +183,7 @@ class DistributedWorker(NN_Trainer):
             # fetch the grad we need
             if self._device.type == "cuda":
                 grad = p.grad.to(torch.device("cpu")).detach()
-                print(grad.shape)
+                logger.info("grad:{}".format(grad.shape()))
             else:
                 grad = p.grad.detach()
             dist.gather(grad, [], dst=0)
