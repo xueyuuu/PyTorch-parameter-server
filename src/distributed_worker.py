@@ -129,8 +129,8 @@ class DistributedWorker(NN_Trainer):
                 self._send_grads()
                 gather_dur = time.time() - gather_start
 
-
-                log_format = 'Worker: {}, Step: {}, Epoch: {} [{}/{} ({:.0f}%)], Loss: {:.4f}, Time Cost: {:.4f}, FetchWeight: {:.4f}, Computation: {:.4f}, GatherTime: {:.4f}, Acc: {:.4f}'
+                log_format = 'Worker: {}, Step: {}, Epoch: {} [{}/{} ({:.0f}%)], Loss: {:.4f}, Time Cost: {:.4f}, ' \
+                             'FetchWeight: {:.4f}, Computation: {:.4f}, GatherTime: {:.4f}, Acc: {:.4f}'
                 logger.info(log_format.format(self.rank,
                             self.cur_step, num_epoch, batch_idx * self.batch_size, len(train_loader.dataset), 
                             (100. * (batch_idx * self.batch_size) / len(train_loader.dataset)), loss.item(), 
@@ -158,7 +158,7 @@ class DistributedWorker(NN_Trainer):
         self.cur_step += 1
     
     def update_step(self):
-        '''update local (global) step on worker'''
+        """update local (global) step on worker"""
         changed = (self.cur_step != self.next_step)
         self.cur_step = self.next_step
         return changed
@@ -183,9 +183,9 @@ class DistributedWorker(NN_Trainer):
             # fetch the grad we need
             if self._device.type == "cuda":
                 grad = p.grad.to(torch.device("cpu")).detach()
+                print(grad.shape)
             else:
                 grad = p.grad.detach()
-
             dist.gather(grad, [], dst=0)
 
     def _evaluate_model(self, test_loader):
