@@ -123,7 +123,7 @@ class SyncReplicasMaster_NN(NN_Trainer):
         #self.network.to(self._device)
         self.network.to(torch.device("cpu"))
 
-    def start(self):
+    def start(self, test_loader):
         for i in range(1, self._max_steps+1):
             # switch back to training mode
             self.network.train()
@@ -137,6 +137,8 @@ class SyncReplicasMaster_NN(NN_Trainer):
             self._recv_grads()
 
             self._model_update()
+
+            self._test_model(test_loader)
 
             self.cur_step += 1
 
@@ -188,3 +190,23 @@ class SyncReplicasMaster_NN(NN_Trainer):
         prec5 = prec5_counter_ / batch_counter_
         self._epoch_counter = validation_loader.dataset.epochs_completed
         logger.info('Testset Performance: Cur Step:{} Prec@1: {} Prec@5: {}'.format(self.cur_step, prec1.numpy()[0], prec5.numpy()[0]))
+
+    def _test_model(self, validation_loader):
+        self.network.eval()
+        # testing
+        test_loss = 0
+        correct = 0
+        for idx, (data, target) in enumerate(test_loader):
+            #if args.gpu != -1:
+            #    data, target = data.cuda(), target.cuda()
+            log_probs = self.network(data)
+            # sum up batch loss
+            test_loss += F.cross_entropy(log_probs, target, reduction='sum').item()
+            # get the index of the max log-probability
+            y_pred = log_probs.data.max(1, keepdim=True)[1]
+            correct += y_pred.eq(target.data.view_as(y_pred)).long().cpu().sum()
+
+        test_loss /= len(test_loader.dataset)
+        accuracy = 100.00 * float(correct) / len(test_loader.dataset)
+        logger.info('\nTest set: Average loss: {:.4f} \nAccuracy: {}/{} ({:.2f}%)\n'.format(
+                test_loss, correct, len(test_loader.dataset), accuracy))
