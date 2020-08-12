@@ -191,7 +191,7 @@ class SyncReplicasMaster_NN(NN_Trainer):
         self._epoch_counter = validation_loader.dataset.epochs_completed
         logger.info('Testset Performance: Cur Step:{} Prec@1: {} Prec@5: {}'.format(self.cur_step, prec1.numpy()[0], prec5.numpy()[0]))
 
-    def _test_model(self, validation_loader):
+    def _test_model(self, test_loader):
         self.network.eval()
         # testing
         test_loss = 0
