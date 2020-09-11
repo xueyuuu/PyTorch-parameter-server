@@ -14,7 +14,7 @@ ${SRC_DIR}/distributed_nn.py \
 --epochs=100 \
 --network=ResNet18 \
 --dataset=Cifar10 \
---batch-size=64 \
+--batch-size=256 \
 --comm-type=Bcast \
 --num-aggregate=2 \
 --mode=normal \

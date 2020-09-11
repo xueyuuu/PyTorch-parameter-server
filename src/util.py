@@ -18,7 +18,7 @@ def build_model(model_name, num_classes):
         return vgg11_bn(num_classes)
 
 def prepare_data(args):
-	# load training and test set here:
+    # load training and test set here:
     if args.dataset == "MNIST":
         training_set = datasets.MNIST('./mnist_data', train=True, download=True,
                    transform=transforms.Compose([
