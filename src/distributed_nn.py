@@ -127,7 +127,7 @@ if __name__ == "__main__":
         else:
             master_fc_nn.build_model(num_classes=10)
         print("I am the master: the world size is {}, cur step: {}".format(master_fc_nn.world_size, master_fc_nn.cur_step))
-        master_fc_nn.start()
+        master_fc_nn.start(test_loader)
         print("Done sending messages to workers!")
     else:
         worker_fc_nn = DistributedWorker(**kwargs_worker)
