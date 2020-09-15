@@ -8,8 +8,8 @@ python3 -m torch.distributed.launch \
 --nproc_per_node=1 \
 --nnodes=${NNODE} --node_rank=${NODE_RANK} --master_addr="${MASTER_IP}" --master_port=1234 \
 ${SRC_DIR}/distributed_nn.py \
---lr=0.1 \
---momentum=0.9 \
+--lr=0.01 \
+--momentum=0.5 \
 --max-steps=100000 \
 --epochs=100 \
 --network=ResNet18 \
